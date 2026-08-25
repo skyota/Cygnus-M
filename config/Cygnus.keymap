@@ -57,7 +57,6 @@
     /* レイヤー5（SCROLL）時のみトラックボールの縦横（X/Y軸）を入れ替える設定 */
     scroll_layer_listener {
         compatible = "zmk,input-listener";
-        device = <&trackball>;
         layers = <5>;
 
         input-processors =
