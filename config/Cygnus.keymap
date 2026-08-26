@@ -22,6 +22,18 @@
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
         };
+
+        // J(21) + K(22) で左クリック
+        left_click {
+            bindings = <&mkp MB1>;
+            key-positions = <21 22>;
+        };
+
+        // K(22) + L(23) で右クリック
+        right_click {
+            bindings = <&mkp MB2>;
+            key-positions = <22 23>;
+        };
     };
 
     macros {
