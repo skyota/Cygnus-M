@@ -24,8 +24,22 @@
         };
 
         // J(21) + K(22) で左クリック
+        left_click {
+            bindings = <&mkp MB1>;
+            key-positions = <21 22>;
+        };
+
         // K(22) + L(23) で右クリック
+        right_click {
+            bindings = <&mkp MB2>;
+            key-positions = <22 23>;
+        };
+
         // U(7) + I(8) で Cmd + 左クリック
+        cmd_left_click {
+            bindings = <&cmd_click>;
+            key-positions = <7 8>;
+        };
     };
 
     macros {
@@ -36,11 +50,35 @@
             label = "TO_LAYER_0";
         };
 
-        parens: parens {
+        pass_mypc: pass_mypc {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp LEFT>;
-            label = "PARENS";
+            tap-ms = <30>;
+            wait-ms = <30>;
+            bindings
+                = <&macro_tap &kp S &kp K &kp N5 &kp N0 &kp N2 &kp N1 &kp K &kp T>
+                , <&macro_tap &kp ENTER>; // 不要なら削除
+        };
+
+        pass_companypc: pass_companypc {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <30>;
+            wait-ms = <30>;
+            bindings
+                = <&macro_tap &kp LS(S) &kp K &kp N5 &kp N0 &kp N2 &kp N1 &kp K &kp T &kp O &kp K &kp O &kp K &kp EXCLAMATION>
+                , <&macro_tap &kp ENTER>; // 不要ならこの行を削除
+        };
+        
+        cmd_click: cmd_click {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <20>;
+            wait-ms = <20>;
+            bindings
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &mkp MB1>
+                , <&macro_release &kp LGUI>;
         };
 
         // 【単押し用】 半角カッコ (LANG2 -> ( -> ) -> ←)
@@ -106,13 +144,13 @@
 
         default_layer {
             bindings = <
-&lt 6 ESC  &kp Q     &kp W     &kp E                    &kp R           &kp T                                           &kp Y        &kp U  &kp I      &kp O    &kp P        &kp BSPC
-&kp TAB    &kp A     &kp S     &kp D                    &kp F           &kp G        &mkp MCLK          &ht_parens 0 0  &kp H        &kp J  &kp K      &lt 4 L  &lt 5 MINUS  &kp ENTER
-&kp LSHFT  &kp Z     &kp X     &kp C                    &kp V           &kp B        &kp DELETE         &kp DOWN_ARROW  &kp N        &kp M  &kp COMMA  &kp DOT  &kp FSLH     &kp RSHFT
-&kp LCTRL  &kp LGUI  &kp LALT  &kp LANG_ZENKAKUHANKAKU  &kp LEFT_ARROW  &lt 1 SPACE  &kp RIGHT_ARROW    &kp BACKSPACE   &lt 2 ENTER                             &kp DEL      &kp RCTRL
+&lt 6 ESC  &kp Q     &kp W     &kp E      &kp R           &kp T                                           &kp Y        &kp U  &kp I      &kp O    &kp P        &kp BSPC
+&kp TAB    &kp A     &kp S     &kp D      &kp F           &kp G        &mkp MCLK          &ht_parens 0 0  &kp H        &kp J  &kp K      &lt 4 L  &lt 5 MINUS  &kp ENTER
+&kp LSHFT  &kp Z     &kp X     &kp C      &kp V           &kp B        &kp LANG1          &kp DOWN_ARROW  &kp N        &kp M  &kp COMMA  &kp DOT  &kp FSLH     &kp RSHFT
+&kp LCTRL  &kp LGUI  &kp LALT  &kp LANG2  &kp LEFT_ARROW  &lt 1 SPACE  &kp RIGHT_ARROW    &kp BACKSPACE   &lt 2 ENTER                             &kp DEL      &kp RCTRL
             >;
 
-            sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
+            sensor-bindings = <&ROTATE SCRL_UP SCRL_DOWN>;
         };
 
         FUNCTION {
@@ -135,10 +173,10 @@
 
         ARROW {
             bindings = <
-&trans  &kp ESCAPE      &kp LC(LS(TAB))         &kp UP_ARROW    &kp LC(TAB)              &trans                     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &kp HOME        &kp LEFT_ARROW          &kp DOWN_ARROW  &kp RIGHT_ARROW          &kp END  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &kp LEFT_SHIFT  &kp LG(LS(LEFT_ARROW))  &trans          &kp LG(LS(RIGHT_ARROW))  &trans   &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans          &trans                  &trans          &trans                   &trans   &trans    &trans  &trans                          &trans  &trans
+&trans  &kp ESCAPE      &kp LC(LS(TAB))         &kp UP_ARROW    &kp LC(TAB)              &trans                       &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &kp HOME        &kp LEFT_ARROW          &kp DOWN_ARROW  &kp RIGHT_ARROW          &kp END  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &kp LEFT_SHIFT  &kp LG(LS(LEFT_ARROW))  &trans          &kp LG(LS(RIGHT_ARROW))  &trans   &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans          &trans                  &trans          &pass_companypc          &trans   &pass_mypc  &trans  &trans                          &trans  &trans
             >;
 
             sensor-bindings = <&ROTATE SCRL_UP SCRL_DOWN>;
